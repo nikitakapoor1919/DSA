@@ -1,34 +1,40 @@
 /*
     Step 1: Create empty Stack. 
-    Step 2: Add root in stack.
-    Step 3: If Stack is not empty
-            Step 3.1: Pop Node.
-            Step 3.2: Add pop Node value in List.
-            Step 3.3: If poppedNode.right !=null then push in stack.
-            Step 3.4: If poppedNode.left !=null then push in stack.
+    Step 2: Intialize current Node as Root.
+    Step 3: Push current in stack and set current=current.left.
+    Step 4: if current is null.
+            Step 4.1: Check if Stack empty break .
+            Step 4.2: Pop Node.
+            Step 4.3: Add pop Node value in List
+            Step 4.4: Set current=poppedNode.right repeat step 3
+    
 */
-
-public class Solution {
-    public ArrayList<Integer> preorderTraversal(TreeNode root) {
-        ArrayList<Integer> list=new ArrayList<>();
-        //Step 1: Create empty Stack. 
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> list=new ArrayList<>();
+        //Step 1: Create empty Stack
         Stack<TreeNode> stack=new Stack<>();
         
-        //Step 2: Add root in stack.
-        stack.push(root);
-        //Step 3: If Stack is not empty
-        while(!stack.isEmpty()){
-            //Step 3.1: Pop Node.
-            TreeNode rv=stack.pop();
-            //Step 3.2: Add pop Node value in List.
-            list.add(rv.val);
-            //Step 3.3: If poppedNode.right !=null then push in stack.
-            if(rv.right!=null){
-                stack.push(rv.right);
+        //Step 2: Intialize current Node as Root
+        TreeNode current=root;
+        while(true){
+            //Step 3: Push current in stack and set current=current.left
+            if(current!=null){
+                stack.push(current);
+                current=current.left;
             }
-            //Step 3.4: If poppedNode.left !=null then push in stack.
-            if(rv.left!=null){
-                stack.push(rv.left);
+            //Step 4: if current is null
+            else{
+                //Step 4.1: Check if Stack empty break 
+                if(stack.isEmpty()){
+                    break;
+                }
+                //Step 4.2: Pop Node
+                TreeNode rv=stack.pop();
+                //Step 4.3: Add pop Node value in List
+                list.add(rv.val);
+                //Step 4.4: Set current=poppedNode.right repeat step 3
+                current=rv.right;
             }
         }
         return list;
