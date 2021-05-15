@@ -23,3 +23,37 @@ class Solution {
         return l&&r;
     }
 }
+//*********************************************************************************************************************************************************
+class Solution {
+    class BalPair{
+        boolean isBal=true;
+        int ht=-1;
+    }
+    public boolean isBalanced(TreeNode root) {
+       return helper(root).isBal;
+    }
+    private BalPair helper(TreeNode root) {
+        if(root==null){
+            return new BalPair();
+        }
+        BalPair lbp=helper(root.left);
+        BalPair rbp=helper(root.right);
+        
+        BalPair sbp=new BalPair();
+        
+        boolean lb=lbp.isBal;
+        boolean rb=rbp.isBal;
+        int sb=lbp.ht-rbp.ht;
+        
+        if(lb && rb && sb>=-1 && sb<=1){
+            sbp.isBal=true;
+        }
+        else{
+            sbp.isBal=false;
+        }
+        sbp.ht=Math.max(lbp.ht,rbp.ht)+1;
+        
+        return sbp;
+        
+    }
+}
