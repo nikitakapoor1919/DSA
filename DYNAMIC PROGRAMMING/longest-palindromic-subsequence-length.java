@@ -49,8 +49,8 @@ public class LongestPalindromicSubSequence {
 			// 2 needs to be added as palindrome is would be of length 2
 			ans = LPSR(str, si + 1, ei - 1) + 2;
 		} else {
-			int o1 = LPSR(str, si, ei - 1);
-			int o2 = LPSR(str, si + 1, ei);
+			int o1 = LPSTD(str, si, ei - 1,strg);
+			int o2 = LPSTD(str, si + 1, ei,strg);
 			ans = Math.max(o1, o2);
 		}
 		// Store
@@ -66,11 +66,10 @@ public class LongestPalindromicSubSequence {
 		for (int slide = 0; slide <= n - 1; slide++) {
 			for (int si = 0; si <= n - slide - 1; si++) {
 				int ei = si + slide;
-				// Negative Base Case
 				if (si > ei) {
 					strg[si][ei] = 0;
 				}
-				// Positive Base Case
+
 				if (si == ei) {
 					strg[si][ei] = 1;
 				} else {
@@ -79,10 +78,10 @@ public class LongestPalindromicSubSequence {
 					int ans;
 					if (ch1 == ch2) {
 						// 2 needs to be added as palindrome is would be of length 2
-						ans = LPSR(str, si + 1, ei - 1) + 2;
+						ans = strg[si+1][ei-1] + 2;
 					} else {
-						int o1 = LPSR(str, si, ei - 1);
-						int o2 = LPSR(str, si + 1, ei);
+						int o1 = strg[si][ei-1];
+						int o2 = strg[si+1][ei];
 						ans = Math.max(o1, o2);
 					}
 					strg[si][ei] = ans;
